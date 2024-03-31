@@ -17,7 +17,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
     // example: load the users credentials & check they have an NFT
     return (
         <div className="p-4">
-            Welcome to Super Stream!
+            Welcome to Degen Stream!
             <FrameContainer
                 postUrl="/frames/balance"
                 pathname="/"
