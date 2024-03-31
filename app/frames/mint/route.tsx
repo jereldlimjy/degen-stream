@@ -55,7 +55,12 @@ export const POST = frames(async (ctx: any) => {
                 )}
             </div>
         ),
-        buttons: [button],
+        buttons: [
+            <Button action="post" target="/balance">
+                Back
+            </Button>,
+            button,
+        ],
         state: {
             hasApproved,
             degenBalance,

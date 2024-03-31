@@ -71,6 +71,9 @@ export const POST = frames(async (ctx: any) => {
                 </div>
             ),
             buttons: [
+                <Button action="post" target="/balance">
+                    Back
+                </Button>,
                 <Button
                     action="tx"
                     target="/txdata/deleteStream"

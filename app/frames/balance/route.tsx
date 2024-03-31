@@ -49,6 +49,9 @@ export const POST = frames(async (ctx: any) => {
         <Button action="post" target="/balance">
             Refresh
         </Button>,
+        <Button action="post" target="/">
+            Back
+        </Button>,
         <Button action="post" target="/mint">
             Mint DEGENx
         </Button>,
