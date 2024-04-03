@@ -27,8 +27,9 @@ export const POST = frames(async (ctx: any) => {
                 </div>
                 <div tw="flex justify-center">
                     <span tw="text-3xl text-center text-rose-600 mt-12">
-                        Sorry for the bad UX, there's a limit of 4 buttons :'
-                        {"("}
+                        {
+                            "Sorry for the bad UX, there's a limit of 4 buttons :'("
+                        }
                     </span>
                 </div>
             </div>
