@@ -43,7 +43,7 @@ export const POST = frames(async (ctx: any) => {
                     action="link"
                     target={`https://console.superfluid.finance/base-mainnet/supertokens/${DEGENX_CONTRACT_ADDRESS}?tab=streams`}
                 >
-                    View Superfluid dashboard 💧
+                    View Superfluid dashboard
                 </Button>,
             ],
         };
