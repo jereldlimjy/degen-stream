@@ -2,11 +2,11 @@ import { TransactionTargetResponse } from "frames.js";
 import { getFrameMessage } from "frames.js/next/server";
 import { NextRequest, NextResponse } from "next/server";
 import { Abi, encodeFunctionData } from "viem";
+import {
+    CFA_FORWARDER_CONTRACT_ADDRESS,
+    DEGENX_CONTRACT_ADDRESS,
+} from "../../../constants";
 import degenxAbi from "../../../assets/degenxAbi.json";
-
-const CFA_FORWARDER_CONTRACT_ADDRESS =
-    "0xcfA132E353cB4E398080B9700609bb008eceB125";
-const DEGENX_CONTRACT_ADDRESS = "0xdb2521910E0299Cfe40811e639bc7dd333589F28";
 
 export async function POST(
     req: NextRequest

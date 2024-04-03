@@ -2,10 +2,8 @@ import { TransactionTargetResponse } from "frames.js";
 import { getFrameMessage } from "frames.js/next/server";
 import { NextRequest, NextResponse } from "next/server";
 import { Abi, encodeFunctionData } from "viem";
-import {
-    CFA_FORWARDER_CONTRACT_ADDRESS,
-    DEGENX_CONTRACT_ADDRESS,
-} from "../../../constants";
+import { ethers } from "ethers";
+import { DEGENX_CONTRACT_ADDRESS } from "../../../constants";
 import degenxAbi from "../../../assets/degenxAbi.json";
 
 export async function POST(
@@ -15,22 +13,15 @@ export async function POST(
 
     const frameMessage = await getFrameMessage(json);
 
-    if (!frameMessage || !frameMessage.inputText) {
+    if (!frameMessage) {
         throw new Error("No frame message");
     }
 
-    const walletAddress = frameMessage.requesterVerifiedAddresses[0];
-
-    // call deleteFlow method
+    // call downgrade  method
     const calldata = encodeFunctionData({
         abi: degenxAbi,
-        functionName: "deleteFlow",
-        args: [
-            DEGENX_CONTRACT_ADDRESS,
-            walletAddress,
-            frameMessage.inputText,
-            "0x0",
-        ],
+        functionName: "downgrade",
+        args: [ethers.parseUnits(frameMessage.inputText!!)],
     });
 
     return NextResponse.json({
@@ -40,7 +31,7 @@ export async function POST(
         method: "eth_sendTransaction",
         params: {
             abi: degenxAbi as Abi,
-            to: CFA_FORWARDER_CONTRACT_ADDRESS,
+            to: DEGENX_CONTRACT_ADDRESS,
             data: calldata,
             value: "0",
         },

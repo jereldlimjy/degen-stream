@@ -3,10 +3,11 @@ import { getFrameMessage } from "frames.js/next/server";
 import { NextRequest, NextResponse } from "next/server";
 import { Abi, encodeFunctionData } from "viem";
 import { ethers } from "ethers";
+import {
+    DEGEN_CONTRACT_ADDRESS,
+    DEGENX_CONTRACT_ADDRESS,
+} from "../../../constants";
 import degenxAbi from "../../../assets/degenxAbi.json";
-
-const DEGEN_CONTRACT_ADDRESS = "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed";
-const DEGENX_CONTRACT_ADDRESS = "0xdb2521910E0299Cfe40811e639bc7dd333589F28";
 
 const degenAbi = [
     {
@@ -49,7 +50,7 @@ export async function POST(
     const hasApproved = state.hasApproved;
 
     if (!hasApproved) {
-        // approve flow sender contract
+        // approve degenx on degen contract
         const calldata = encodeFunctionData({
             abi: degenAbi,
             functionName: "approve",
@@ -72,7 +73,7 @@ export async function POST(
             },
         });
     } else {
-        // call gainDegenx method
+        // call upgrade method
         const calldata = encodeFunctionData({
             abi: degenxAbi,
             functionName: "upgrade",

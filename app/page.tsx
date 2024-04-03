@@ -5,16 +5,13 @@ import {
     NextServerPageProps,
     getPreviousFrame,
 } from "frames.js/next/server";
-import { DegenLogo } from "./components/DegenLogo";
+import { DegenLogoLight } from "./components/DegenLogoLight";
 
 type State = {};
 
-// This is a react server component only
 export default async function Home({ searchParams }: NextServerPageProps) {
     const previousFrame = getPreviousFrame<State>(searchParams);
 
-    // Here: do a server side side effect either sync or async (using await), such as minting an NFT if you want.
-    // example: load the users credentials & check they have an NFT
     return (
         <div className="p-4">
             Welcome to Degen Stream!
@@ -25,12 +22,12 @@ export default async function Home({ searchParams }: NextServerPageProps) {
                 previousFrame={previousFrame}
             >
                 <FrameImage aspectRatio="1.91:1">
-                    <div tw="w-full h-full bg-white justify-center items-center flex flex-col relative">
+                    <div tw="w-full h-full bg-violet-500 justify-center items-center flex flex-col relative">
                         <div tw="flex absolute top-25 left-130">
-                            <DegenLogo height={100} width={100} />
+                            <DegenLogoLight height={100} width={100} />
                         </div>
-                        <div tw="flex justify-center items-center w-3/4 bg-violet-500 rounded-lg">
-                            <h1 tw="text-white text-center text-6xl">
+                        <div tw="flex justify-center items-center bg-violet-50 w-3/4 rounded-lg">
+                            <h1 tw="text-violet-800 text-center text-6xl">
                                 Welcome to Degen Stream!
                             </h1>
                         </div>

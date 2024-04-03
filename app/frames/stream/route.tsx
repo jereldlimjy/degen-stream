@@ -3,8 +3,9 @@ import { DegenLogo } from "../../components/DegenLogo";
 import { frames } from "../frames";
 import { Button } from "frames.js/next";
 import { ethers } from "ethers";
-import { nFormat } from "../../utils/utils";
+import { formatNumber } from "../../utils/utils";
 import * as dotenv from "dotenv";
+import { DEGENX_CONTRACT_ADDRESS } from "../../constants";
 
 dotenv.config();
 
@@ -21,8 +22,8 @@ export const POST = frames(async (ctx: any) => {
                         <DegenLogo height={60} width={60} />
                     </div>
                     <div tw="flex flex-col justify-center items-center">
-                        <span>Transaction submitted!</span>
-                        <span tw="text-2xl mt-4">
+                        <span tw="text-5xl">Transaction submitted!</span>
+                        <span tw="text-2xl mt-8">
                             {ctx.message.transactionId}
                         </span>
                     </div>
@@ -38,6 +39,12 @@ export const POST = frames(async (ctx: any) => {
                 >
                     View on block explorer
                 </Button>,
+                <Button
+                    action="link"
+                    target={`https://console.superfluid.finance/base-mainnet/supertokens/${DEGENX_CONTRACT_ADDRESS}?tab=streams`}
+                >
+                    View Superfluid dashboard 💧
+                </Button>,
             ],
         };
     } else {
@@ -52,20 +59,24 @@ export const POST = frames(async (ctx: any) => {
                         <span tw="mt-1 text-4xl">{username}</span>
                     </div>
                     <div tw="flex mt-8">
-                        <span>How much DEGENx would you like to stream?</span>
+                        <span>
+                            Input an address to create or delete an existing
+                            flow
+                        </span>
                     </div>
                     <div tw="flex mt-8">
                         <span>Super Degen Balance: </span>
                         <span tw="ml-2 text-violet-600">
-                            {nFormat.format(
+                            {formatNumber(
                                 Number(ethers.formatEther(degenxBalance))
                             )}{" "}
                             DEGENx
                         </span>
                     </div>
-                    <div tw="flex">
+                    <div tw="flex justify-center">
                         <span tw="text-2xl text-center text-green-800 mt-12">
-                            Note: Using a default flow rate of 100 DEGENx / year
+                            Note: Using a default flow rate of{" "}
+                            <span tw="underline ml-1"> 100 DEGENx / year</span>
                         </span>
                     </div>
                 </div>
@@ -74,15 +85,15 @@ export const POST = frames(async (ctx: any) => {
                 <Button action="post" target="/balance">
                     Back
                 </Button>,
+                <Button action="tx" target="/txdata/stream" post_url="/stream">
+                    Create flow
+                </Button>,
                 <Button
                     action="tx"
                     target="/txdata/deleteStream"
                     post_url="/stream"
                 >
-                    Delete DEGENx flow
-                </Button>,
-                <Button action="tx" target="/txdata/stream" post_url="/stream">
-                    Create DEGENx flow
+                    Delete flow
                 </Button>,
             ],
             state: {

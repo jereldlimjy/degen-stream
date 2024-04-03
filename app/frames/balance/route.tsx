@@ -3,20 +3,22 @@ import { DegenLogo } from "../../components/DegenLogo";
 import { frames } from "../frames";
 import { Button } from "frames.js/next";
 import { ethers } from "ethers";
-import { nFormat } from "../../utils/utils";
+import { formatNumber } from "../../utils/utils";
+import {
+    DEGEN_CONTRACT_ADDRESS,
+    DEGENX_CONTRACT_ADDRESS,
+} from "../../constants";
 import * as dotenv from "dotenv";
 
 dotenv.config();
-
-const DEGEN_CONTRACT_ADDRESS = "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed";
-const DEGENX_CONTRACT_ADDRESS = "0xdb2521910E0299Cfe40811e639bc7dd333589F28";
 
 // Optimism sepolia fUSDC
 // const DEGEN_CONTRACT_ADDRESS = "0x2eaa49BeB4Aa4fcC709DC14c0FA0fF1B292077b5";
 // const DEGENX_CONTRACT_ADDRESS = "0x131780640EDf9830099AAc2203229073d6D2FE69";
 
 export const POST = frames(async (ctx: any) => {
-    const { profileImage, username } = ctx.message.requesterUserData;
+    const { username } = ctx.message.requesterUserData;
+    const profileImage = ctx.message.requesterUserData?.profileImage ?? "";
     const walletAddress = ctx.message.requesterVerifiedAddresses[0];
     const provider = new ethers.JsonRpcProvider(process.env.BASE_RPC_URL ?? "");
 
@@ -52,8 +54,8 @@ export const POST = frames(async (ctx: any) => {
         <Button action="post" target="/">
             Back
         </Button>,
-        <Button action="post" target="/mint">
-            Mint DEGENx
+        <Button action="post" target="/degenx">
+            Mint/Unwrap DEGENx
         </Button>,
     ];
 
@@ -79,7 +81,7 @@ export const POST = frames(async (ctx: any) => {
                     <div tw="flex justify-between">
                         <span>Degen Balance: </span>
                         <span tw="ml-2 text-violet-600">
-                            {nFormat.format(
+                            {formatNumber(
                                 Number(ethers.formatEther(degenBalance))
                             )}{" "}
                             DEGEN
@@ -88,13 +90,13 @@ export const POST = frames(async (ctx: any) => {
                     <div tw="flex mt-4 justify-between">
                         <span>Super Degen Balance: </span>
                         <span tw="ml-2 text-violet-600">
-                            {nFormat.format(
+                            {formatNumber(
                                 Number(ethers.formatEther(degenxBalance))
                             )}{" "}
                             DEGENx
                         </span>
                     </div>
-                    <div tw="flex">
+                    <div tw="flex justify-center">
                         <span tw="text-2xl text-center text-green-800 mt-12">
                             Note: Try refreshing if your balance does not show
                             up

@@ -10,18 +10,7 @@ dotenv.config();
 
 export const POST = frames(async (ctx: any) => {
     const { profileImage, username } = ctx.message.requesterUserData;
-    const { degenBalance } = ctx.state;
-    const hasApproved = !!ctx.message?.transactionId;
-
-    const button = hasApproved ? (
-        <Button action="tx" target="/txdata/mint" post_url="/balance">
-            Mint DEGENx
-        </Button>
-    ) : (
-        <Button action="tx" target="/txdata/mint" post_url="/mint">
-            Approve DEGENx
-        </Button>
-    );
+    const { degenxBalance } = ctx.state;
 
     return {
         image: (
@@ -34,34 +23,29 @@ export const POST = frames(async (ctx: any) => {
                     <span tw="mt-1 text-4xl">{username}</span>
                 </div>
                 <div tw="flex mt-8">
-                    <span>How much DEGENx would you like to mint?</span>
+                    <span>How much DEGENx would you like to unwrap?</span>
                 </div>
                 <div tw="flex mt-8">
-                    <span>Degen Balance: </span>
+                    <span>Super Degen Balance: </span>
                     <span tw="ml-2 text-violet-600">
-                        {formatNumber(Number(ethers.formatEther(degenBalance)))}{" "}
+                        {formatNumber(
+                            Number(ethers.formatEther(degenxBalance))
+                        )}{" "}
                         DEGEN
                     </span>
                 </div>
-                {!hasApproved && (
-                    <div tw="flex justify-center">
-                        <span tw="text-2xl text-center text-green-800 mt-12">
-                            Note: Before minting, you first need to approve the
-                            DEGENx contract
-                        </span>
-                    </div>
-                )}
             </div>
         ),
         buttons: [
             <Button action="post" target="/degenx">
                 Back
             </Button>,
-            button,
+            <Button action="tx" target="/txdata/unwrap" post_url="/balance">
+                Unwrap DEGENx
+            </Button>,
         ],
         state: {
-            hasApproved,
-            degenBalance,
+            degenxBalance,
         },
         textInput: " Amount:",
     };
