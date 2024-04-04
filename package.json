@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@airstack/frames": "^1.0.20",
     "@farcaster/core": "^0.14.3",
     "@noble/ed25519": "^2.0.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@vercel/kv": "^1.0.1",
     "@xmtp/frames-validator": "^0.5.0",
     "class-variance-authority": "^0.7.0",
@@ -19,6 +21,7 @@
     "frames.js": "^0.9.3",
     "lucide-react": "^0.331.0",
     "next": "^14.1.0",
+    "nextjs-node-loader": "^1.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss-animate": "^1.0.7"

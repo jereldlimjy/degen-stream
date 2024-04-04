@@ -8,6 +8,7 @@ import {
     DEGEN_CONTRACT_ADDRESS,
     DEGENX_CONTRACT_ADDRESS,
 } from "../../constants";
+import { init, validateFramesMessage } from "@airstack/frames";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -17,6 +18,10 @@ dotenv.config();
 // const DEGENX_CONTRACT_ADDRESS = "0x131780640EDf9830099AAc2203229073d6D2FE69";
 
 export const POST = frames(async (ctx: any) => {
+    const payload = await ctx.request.json();
+    init(process.env.AIRSTACK_API_KEY ?? "");
+    await validateFramesMessage(payload);
+
     const { username } = ctx.message.requesterUserData;
     const profileImage = ctx.message.requesterUserData?.profileImage ?? "";
     const walletAddress = ctx.message.requesterVerifiedAddresses[0];
