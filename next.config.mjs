@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config, { dev, isServer, webpack, nextRuntime }) => {
-        config.module.rules.push({
-            test: /\.node$/,
-            use: [
-                {
-                    loader: "nextjs-node-loader",
-                },
-            ],
+    experimental: {
+        serverComponentsExternalPackages: ["@resvg/resvg-js"],
+    },
+    webpack: (config) => {
+        config.externals.push({
+            sharp: "commonjs sharp",
+            "@resvg/resvg-js": "commonjs @resvg/resvg-js",
         });
+
         return config;
     },
     // prevent double render on dev mode, which causes 2 frames to exist
@@ -24,9 +24,6 @@ const nextConfig = {
                 protocol: "https",
             },
         ],
-    },
-    typescript: {
-        ignoreBuildErrors: true,
     },
 };
 

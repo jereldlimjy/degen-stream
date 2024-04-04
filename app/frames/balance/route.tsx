@@ -8,19 +8,15 @@ import {
     DEGEN_CONTRACT_ADDRESS,
     DEGENX_CONTRACT_ADDRESS,
 } from "../../constants";
-// import { init, validateFramesMessage } from "@airstack/frames";
+import { init, validateFramesMessage } from "@airstack/frames";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-// Optimism sepolia fUSDC
-// const DEGEN_CONTRACT_ADDRESS = "0x2eaa49BeB4Aa4fcC709DC14c0FA0fF1B292077b5";
-// const DEGENX_CONTRACT_ADDRESS = "0x131780640EDf9830099AAc2203229073d6D2FE69";
-
 export const POST = frames(async (ctx: any) => {
-    // const payload = await ctx.request.json();
-    // init(process.env.AIRSTACK_API_KEY ?? "");
-    // await validateFramesMessage(payload);
+    const payload = await ctx.request.json();
+    init(process.env.AIRSTACK_API_KEY ?? "");
+    await validateFramesMessage(payload);
 
     const { username } = ctx.message.requesterUserData;
     const profileImage = ctx.message.requesterUserData?.profileImage ?? "";
